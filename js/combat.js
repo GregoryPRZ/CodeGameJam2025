@@ -350,7 +350,7 @@ initializeCharacters() {
 
     if (activeCharacter.name === "Aveugle") {
       this.restrictVisionToCharacter(activeCharacter);
-    } else if (!this.playerHasMoved && activeCharacter.name = "Enregistreur") {
+    } else if (!this.playerHasMoved && activeCharacter.name != "Enregistreur") {
       this.highlightMovableTiles(activeCharacter);
     } else {
       // Réinitialiser les surbrillances
