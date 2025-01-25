@@ -290,6 +290,7 @@ initializeCharacters() {
         !this.grid[newX][newY].isObstacle
       ) {
         console.log(`Highlight case (${newX}, ${newY})`);
+    
         this.grid[newX][newY].setTint(0x00ff00); // Vert
       }
     });
@@ -349,7 +350,7 @@ initializeCharacters() {
 
     if (activeCharacter.name === "Aveugle") {
       this.restrictVisionToCharacter(activeCharacter);
-    } else if (!this.playerHasMoved) {
+    } else if (!this.playerHasMoved && activeCharacter.name = "Enregistreur") {
       this.highlightMovableTiles(activeCharacter);
     } else {
       // Réinitialiser les surbrillances
@@ -404,7 +405,6 @@ initializeCharacters() {
         targetY < this.grid[0].length
       ) {
         const tile = this.grid[targetX][targetY];
-        const baseColor = (targetX + targetY) % 2 === 0 ? 0xffffff : 0x5fffff;
 
         // Rendre visible les obstacles, ennemis ou personnages dans le champ de vision
         if (
@@ -416,7 +416,7 @@ initializeCharacters() {
             (ob) => ob.gridX === targetX && ob.gridY === targetY
           );
           obstacle.setVisible(true);
-          tile.setTint(baseColor); // Restaure la couleur de la case
+          tile.clearTint(); // Restaure la couleur de la case
         } else if (
           this.enemies.some((en) => en.x === targetX && en.y === targetY)
         ) {
@@ -424,7 +424,7 @@ initializeCharacters() {
             (en) => en.x === targetX && en.y === targetY
           );
           enemy.visual.setVisible(true);
-          tile.setTint(baseColor); // Restaure la couleur de la case
+          tile.clearTint(); // Restaure la couleur de la case
         } else if (
           this.characters.some(
             (ch) => ch.x === targetX && ch.y === targetY && ch !== character
@@ -434,9 +434,9 @@ initializeCharacters() {
             (ch) => ch.x === targetX && ch.y === targetY && ch !== character
           );
           otherChar.visual.setVisible(true);
-          tile.setTint(baseColor); // Restaure la couleur de la case
+          tile.clearTint(); // Restaure la couleur de la case
         } else {
-          tile.setTint(baseColor); // Restaure uniquement les cases adjacentes visibles
+          tile.clearTint(); // Restaure uniquement les cases adjacentes visibles
         }
       }
     });
@@ -670,12 +670,10 @@ initializeCharacters() {
 
     const resetGridAndTargets = () => {
       this.grid.flat().forEach((tile) => {
-        const baseColor =
-          (tile.gridX + tile.gridY) % 2 === 0 ? 0xffffff : 0x5fffff;
-        tile.setTint(baseColor); // Restaure les couleurs du plateau
+        tile.clearTint(); // Restaure les couleurs du plateau
       });
       this.obstacles.forEach((obstacle) => {
-        obstacle.setTint(0xff00ff); // Restaure la couleur des obstacles
+        obstacle.clearTint(); // Restaure la couleur des obstacles
       });
       this.characters.forEach((char) => {
         char.visual.setAlpha(1); // Réinitialise l'opacité des personnages
@@ -747,8 +745,8 @@ initializeCharacters() {
         `QTE ${qteIndex + 1}: Appuyez sur '${targetLetter}' rapidement !`
       );
 
-      const qteText = this.add.text(200, 200, `Appuyez sur '${targetLetter}'`, {
-        fontSize: "32px",
+      const qteText = this.add.text(3000, -1500, `Appuyez sur '${targetLetter}'`, {
+        fontSize: "200px",
         color: "#ffffff",
         backgroundColor: "#000000",
         padding: { x: 10, y: 10 },

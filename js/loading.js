@@ -51,6 +51,10 @@ export default class loading {
     this.load.image("bossSprite", "./assets/spritesheets/enemy/boss.png");
     this.load.image("gramophoneSprite", "./assets/spritesheets/enemy/gramophone.png");
     this.load.image("megaphoneSprite", "./assets/spritesheets/enemy/megaphone.png");
+
+    this.load.image("skillDegat", "./assets/ui/cards/enregistreur_skill_degat.png");
+    this.load.image("skillDeplacement", "./assets/ui/cards/enregistreur_skill_deplacement.png");
+    this.load.image("skillEchange", "./assets/ui/cards/enregistreur_skill_echange.png");
   }
 
   create() {
